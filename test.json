@@ -1,0 +1,13 @@
+{
+  "pageContent": {
+    "pageInfo": {
+      "sourceUrl": "https://www.google.com",
+      "title": "Google"
+    },
+    "pageContent": "page-content-here"
+  },
+  "metadata": {
+    "datasource_id": "your-id",
+    "data_type": "url"
+  }
+}
