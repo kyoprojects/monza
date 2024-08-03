@@ -343,7 +343,7 @@ gsap.ticker.lagSmoothing(500, 1000);
 // });
 
 // circle text
-new CircleType(document.querySelector(".circle-text"));
+new CircleType(document.getElementById("circletext"));
 
 //
 
