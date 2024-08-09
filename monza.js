@@ -312,7 +312,6 @@ function raf(time) {
 }
 
 requestAnimationFrame(raf);
-//
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   // add timeout
