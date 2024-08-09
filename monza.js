@@ -304,31 +304,14 @@ preloadImages().then(() => {
 
 // lenis
 
-// Initialize Lenis with a longer duration for slower scroll effect
-const lenis = new Lenis({
-  duration: 20, // Increase the duration to slow down the scroll effect (2 seconds)
-  easing: (t) => t * t * t, // Optional: Customize the easing function for a smoother effect
-});
+const lenis = new Lenis();
 
-// Debounce the ScrollTrigger update to reduce performance hits
-let scrollTriggerUpdate;
-lenis.on("scroll", () => {
-  clearTimeout(scrollTriggerUpdate);
-  scrollTriggerUpdate = setTimeout(() => {
-    ScrollTrigger.update();
-  }, 100);
-});
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
 
-// Use requestAnimationFrame directly for smoother animations
-const animate = (time) => {
-  lenis.raf(time * 1000);
-  requestAnimationFrame(animate);
-};
-requestAnimationFrame(animate);
-
-// Adjust gsap.ticker settings if necessary
-gsap.ticker.lagSmoothing(500, 1000);
-
+requestAnimationFrame(raf);
 //
 
 // document.addEventListener("DOMContentLoaded", function () {
