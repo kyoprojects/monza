@@ -1,29 +1,50 @@
 console.log("Hello, World!");
 gsap.registerPlugin(ScrollTrigger);
+
 gsap.set(".sectionunderlay-slide", { y: "0" });
+
+const heroSpans = document.querySelectorAll(".header-span.hero");
+const isVisible = (element) => {
+  if (!element) return false;
+  const style = window.getComputedStyle(element);
+  if (style.display === "none" || style.visibility === "hidden") return false;
+  return element.parentElement ? isVisible(element.parentElement) : true;
+};
+const visibleHeroSpans = Array.from(heroSpans).filter(isVisible);
+console.log(visibleHeroSpans);
+
 /// initial entrance animations
 const tl = gsap.timeline();
-const heroItems = tl.to(".preloaderslide.preloader", {
+tl.to(".preloaderslide.preloader", {
   y: "-100%",
   stagger: 0.1,
   duration: 2,
   ease: "expo.out",
   delay: 1,
-});
-tl.from(".header-span.hero", {
-  y: "200%",
-  stagger: 0.07,
-  duration: 0.6,
-  ease: "expo.out",
-  delay: -2,
-});
-tl.from(".hero-decoration", {
-  y: "200%",
-  stagger: 0.07,
-  duration: 0.6,
-  ease: "expo.out",
-  delay: -2,
-});
+})
+  .from(
+    visibleHeroSpans,
+    {
+      y: "200%",
+      stagger: 0.07,
+      duration: 0.6,
+      ease: "expo.out",
+      // delay: -2,
+    },
+    "-=2"
+  )
+  .from(
+    ".hero-decoration",
+    {
+      y: "200%",
+      stagger: -0.1,
+      duration: 1,
+      ease: "expo.out",
+      delay: 0,
+    },
+    "-=1"
+  );
+
 gsap.to(".circular.outer", {
   rotation: 360,
   duration: 30,
@@ -53,7 +74,14 @@ gsap.timeline({
       document.querySelector(".header-container").style.mixBlendMode =
         "difference";
 
-      gsap.to(".hero-decoration, .header-span.hero", {
+      gsap.to(visibleHeroSpans, {
+        y: "-250%",
+        stagger: 0.08,
+        duration: 1,
+        delay: 0.05,
+        ease: "expo.out",
+      });
+      gsap.to(".hero-decoration", {
         y: "-250%",
         stagger: 0.08,
         duration: 1,
