@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   tl.from(".hero-decoration, .header-span.hero", {
     y: "200%",
-    stagger: 0.07,
+    stagger: 0.05,
     duration: 0.6,
     ease: "expo.out",
     delay: -2,
