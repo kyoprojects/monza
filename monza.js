@@ -1,13 +1,13 @@
-console.log("Hello, World!");
+console.log('Hello, World!');
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.set(".sectionunderlay-slide", { y: "0" });
+gsap.set('.sectionunderlay-slide', { y: '0' });
 
-const heroSpans = document.querySelectorAll(".header-span.hero");
-const isVisible = (element) => {
+const heroSpans = document.querySelectorAll('.header-span.hero');
+const isVisible = element => {
   if (!element) return false;
   const style = window.getComputedStyle(element);
-  if (style.display === "none" || style.visibility === "hidden") return false;
+  if (style.display === 'none' || style.visibility === 'hidden') return false;
   return element.parentElement ? isVisible(element.parentElement) : true;
 };
 const visibleHeroSpans = Array.from(heroSpans).filter(isVisible);
@@ -15,86 +15,31 @@ console.log(visibleHeroSpans);
 
 /// initial entrance animations
 const tl = gsap.timeline();
-tl.to(".preloaderslide.preloader", {
-  y: "-100%",
-  stagger: 0.1,
-  duration: 2,
-  ease: "expo.out",
-  delay: 1,
-})
-  .from(
-    visibleHeroSpans,
-    {
-      y: "200%",
-      stagger: 0.07,
-      duration: 0.6,
-      ease: "expo.out",
-      // delay: -2,
-    },
-    "-=2"
-  )
-  .from(
-    ".hero-decoration",
-    {
-      y: "200%",
-      stagger: -0.1,
-      duration: 1,
-      ease: "expo.out",
-      delay: 0,
-    },
-    "-=1"
-  );
+tl.to('.preloaderslide.preloader', { y: '-100%', stagger: 0.1, duration: 2, ease: 'expo.out', delay: 1 })
+  .from(visibleHeroSpans, { y: '200%', stagger: 0.07, duration: 0.6, ease: 'expo.out' }, '-=2')
+  .from('.hero-decoration', { y: '200%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '-=1');
 
-gsap.to(".circular.outer", {
-  rotation: 360,
-  duration: 30,
-  repeat: -1,
-  ease: "none",
-});
-gsap.to(".circular.inner", {
-  rotation: -360,
-  duration: 30,
-  repeat: -1,
-  ease: "none",
-});
+gsap.to('.circular.outer', { rotation: 360, duration: 30, repeat: -1, ease: 'none' });
+gsap.to('.circular.inner', { rotation: -360, duration: 30, repeat: -1, ease: 'none' });
 
 // top timeline
 gsap.timeline({
   scrollTrigger: {
-    trigger: "body",
-    start: "top top",
-    end: "+=50px", // End after scrolling X px
+    trigger: 'body',
+    start: 'top top',
+    end: '+=50px', // End after scrolling X px
     // markers: true,
-    toggleActions: "play none none none",
+    toggleActions: 'play none none none',
 
     fastScrollEnd: true,
     preventOverlaps: true,
 
     onLeave: () => {
-      document.querySelector(".header-container").style.mixBlendMode =
-        "difference";
+      document.querySelector('.header-container').style.mixBlendMode = 'difference';
 
-      gsap.to(visibleHeroSpans, {
-        y: "-250%",
-        stagger: 0.08,
-        duration: 1,
-        delay: 0.05,
-        ease: "expo.out",
-      });
-      gsap.to(".hero-decoration", {
-        y: "-250%",
-        stagger: 0.08,
-        duration: 1,
-        delay: 0.05,
-        ease: "expo.out",
-      });
-      gsap.to(".sectionunderlay-slide", {
-        y: "-100%",
-        stagger: 0.1,
-        duration: 3,
-        ease: "expo.out",
-        delay: 0.2,
-      });
+      gsap.to(visibleHeroSpans, { y: '-250%', stagger: 0.08, duration: 1, delay: 0.05, ease: 'expo.out' });
+      gsap.to('.hero-decoration', { y: '-250%', stagger: 0.08, duration: 1, delay: 0.05, ease: 'expo.out' });
+      gsap.to('.sectionunderlay-slide', { y: '-100%', stagger: 0.1, duration: 3, ease: 'expo.out', delay: 0.2 });
     },
     //   onLeave: () => {
     //     gsap.to(".header-span.hero", {
@@ -105,22 +50,11 @@ gsap.timeline({
     //     });
     //   },
     onEnterBack: () => {
-      document.querySelector(".header-container").style.mixBlendMode = "normal";
+      document.querySelector('.header-container').style.mixBlendMode = 'normal';
 
-      gsap.to(".hero-decoration, .header-span.hero", {
-        y: "0",
-        stagger: -0.08,
-        duration: 1,
-        ease: "expo.out",
-      });
-      gsap.to(".sectionunderlay-slide", {
-        y: "0",
-        stagger: -0.1,
-        duration: 3,
-        ease: "expo.out",
-        delay: 0.3,
-      });
-    },
+      gsap.to('.hero-decoration, .header-span.hero', { y: '0', stagger: -0.08, duration: 1, ease: 'expo.out' });
+      gsap.to('.sectionunderlay-slide', { y: '0', stagger: -0.1, duration: 3, ease: 'expo.out', delay: 0.3 });
+    }
     //   onLeaveBack: () => {
     //     gsap.to(".header-span.hero", {
     //       y: "-250%",
@@ -129,50 +63,26 @@ gsap.timeline({
     //       ease: "expo.out",
     //     });
     //   },
-  },
+  }
 });
 
 // bottom timeline
 gsap.timeline({
   scrollTrigger: {
-    trigger: "body",
-    start: "bottom bottom",
-    end: "-=50px", // End after scrolling 20px
+    trigger: 'body',
+    start: 'bottom bottom',
+    end: '-=50px', // End after scrolling 20px
     // markers: true,
-    toggleActions: "play none none none",
+    toggleActions: 'play none none none',
     onEnter: () => {
-      gsap.to(".footer-slide", {
-        y: "0",
-        stagger: 0.1,
-        duration: 2,
-        ease: "expo.out",
-        delay: 0.2,
-      });
-      gsap.to(".footer-container", {
-        y: "0",
-        opacity: 1,
-        duration: 1,
-        ease: "expo.out",
-        delay: 1,
-      });
+      gsap.to('.footer-slide', { y: '0', stagger: 0.1, duration: 2, ease: 'expo.out', delay: 0.2 });
+      gsap.to('.footer-container', { y: '0', opacity: 1, duration: 1, ease: 'expo.out', delay: 1 });
     },
     onLeaveBack: () => {
-      gsap.to(".footer-slide", {
-        y: "100%",
-        stagger: -0.1,
-        duration: 2,
-        ease: "expo.out",
-        delay: 0.2,
-      });
-      gsap.to(".footer-container", {
-        y: "100px",
-        opacity: 0,
-        duration: 1,
-        ease: "expo.out",
-        delay: 0.1,
-      });
-    },
-  },
+      gsap.to('.footer-slide', { y: '100%', stagger: -0.1, duration: 2, ease: 'expo.out', delay: 0.2 });
+      gsap.to('.footer-container', { y: '100px', opacity: 0, duration: 1, ease: 'expo.out', delay: 0.1 });
+    }
+  }
 });
 
 //
@@ -182,149 +92,104 @@ gsap.timeline({
 // Image gallery slides timeline
 gsap
   .timeline({
-    scrollTrigger: {
-      trigger: ".image-slide-sectionwrap",
-      start: "top bottom", // Adjust this value as needed
-      end: "bottom top", // Adjust this value as needed
-      scrub: 3, // Synchronize the animation with the scrollbar
-      markers: true,
-      toggleActions: "play none none none",
-    },
+    scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
   })
-  .fromTo("[image-slide-1]", { y: "100px" }, { y: "-100px" })
-  .fromTo("[image-slide-2]", { y: "400px" }, { y: "-20px" }, "<")
-  .fromTo("[image-slide-3]", { y: "600px" }, { y: "-300px" }, "<")
-  .fromTo("[image-slide-4]", { y: "600px" }, { y: "-100px" }, "<")
-  .fromTo("[image-slide-5]", { y: "1800px" }, { y: "-450px" }, "<");
+  .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
+  .fromTo('[image-slide-2]', { y: '400px' }, { y: '-20px' }, '<')
+  .fromTo('[image-slide-3]', { y: '600px' }, { y: '-300px' }, '<')
+  .fromTo('[image-slide-4]', { y: '600px' }, { y: '-100px' }, '<')
+  .fromTo('[image-slide-5]', { y: '1800px' }, { y: '-450px' }, '<');
 
 //
 
 // sticky section
 
-const sections = document.querySelectorAll(".sticky-section-wrap");
+const sections = document.querySelectorAll('.sticky-section-wrap');
 
 sections.forEach((section, index) => {
-  var body = section.querySelector(".sticky-section-body");
-  var hoverLink = section.querySelector("[hover-image]");
+  var body = section.querySelector('.sticky-section-body');
+  var hoverLink = section.querySelector('[hover-image]');
   var contentHeight = body.clientHeight;
   // console.log(body);
   ScrollTrigger.create({
     trigger: `.sticky-pseudo:nth-child(${index + 1})`,
-    start: "top top",
-    end: "bottom top",
+    start: 'top top',
+    end: 'bottom top',
     // body text
     onEnter: () => {
-      gsap.fromTo(
-        body,
-        { opacity: 0, autoAlpha: 0, height: 0 },
-        {
-          opacity: 1,
-          autoAlpha: 1,
-          height: contentHeight,
-          duration: 1,
-          ease: "expo.out",
-        }
-      );
+      gsap.fromTo(body, { opacity: 0, autoAlpha: 0, height: 0 }, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 1, ease: 'expo.out' });
       gsap.fromTo(section, { opacity: 0.4 }, { opacity: 1 });
-      gsap.fromTo(
-        hoverLink,
-        { display: "none" },
-        { display: "block", delay: 0.1 }
-      );
+      gsap.fromTo(hoverLink, { display: 'none' }, { display: 'block', delay: 0.1 });
       // hoverLink.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
     },
     onLeave: () => {
-      gsap.to(body, {
-        opacity: 0,
-        autoAlpha: 0,
-        height: 0,
-        duration: 1,
-        ease: "expo.out",
-      });
+      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 1, ease: 'expo.out' });
       gsap.to(section, { opacity: 0.4 });
-      gsap.to(hoverLink, { display: "none" });
-      hoverLink.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true }));
+      gsap.to(hoverLink, { display: 'none' });
+      hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
     },
     onEnterBack: () => {
-      gsap.to(body, {
-        opacity: 1,
-        autoAlpha: 1,
-        height: contentHeight,
-        duration: 1,
-        ease: "expo.out",
-      });
+      gsap.to(body, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 1, ease: 'expo.out' });
       gsap.to(section, { opacity: 1 });
-      gsap.to(hoverLink, { display: "block", delay: 0.1 });
-      hoverLink.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+      gsap.to(hoverLink, { display: 'block', delay: 0.1 });
+      hoverLink.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
     },
     onLeaveBack: () => {
-      gsap.to(body, {
-        opacity: 0,
-        autoAlpha: 0,
-        height: 0,
-        duration: 1,
-        ease: "expo.out",
-      });
+      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 1, ease: 'expo.out' });
       gsap.to(section, { opacity: 0.4 });
-      gsap.to(hoverLink, { display: "none" });
-      hoverLink.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true }));
-    },
+      gsap.to(hoverLink, { display: 'none' });
+      hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+    }
   });
 });
 // setTimeout(() => {
-gsap.set(".sticky-section-body", { height: "0" });
-gsap.set("[hover-image]", { display: "none" });
-gsap.set(".sticky-section-wrap", { opacity: 0.4 });
+gsap.set('.sticky-section-body', { height: '0' });
+gsap.set('[hover-image]', { display: 'none' });
+gsap.set('.sticky-section-wrap', { opacity: 0.4 });
 
 // sticky section spans
-gsap.from(".section-1-heading", {
+gsap.from('.section-1-heading', {
   duration: 1,
   opacity: 0,
-  y: "250%",
+  y: '250%',
   stagger: 0.08,
-  ease: "expo.out",
+  ease: 'expo.out',
   scrollTrigger: {
-    trigger: ".triggercontainer",
-    start: "top 60%",
-    end: "bottom top",
+    trigger: '.triggercontainer',
+    start: 'top 60%',
+    end: 'bottom top',
     markers: true,
-    toggleActions: "play none none none",
-  },
+    toggleActions: 'play none none none'
+  }
 });
 
 //
 
-gsap.set(".footer-slide", { y: "100%" });
-gsap.set(".footer-container", { y: "100px", opacity: 0 });
+gsap.set('.footer-slide', { y: '100%' });
+gsap.set('.footer-container', { y: '100px', opacity: 0 });
 gsap.fromTo(
-  ".whatsapp-button-radial",
+  '.whatsapp-button-radial',
   { opacity: 0 }, // Start state
-  {
-    opacity: 1,
-    ease: "power4.inOut",
-    repeat: -1,
-    duration: 2,
-    yoyo: true,
-  } // End state
+  { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
 );
 
 /// threejs
 
 // const container = document.body;
-const container = document.querySelector(".triggercontainer");
-const itemsWrapper = document.querySelector(".hoverwrap");
+const container = document.querySelector('.triggercontainer');
+const itemsWrapper = document.querySelector('.hoverwrap');
 // Preload images
 const preloadImages = () => {
   return new Promise((resolve, reject) => {
-    imagesLoaded(document.querySelectorAll("img"), resolve);
+    imagesLoaded(document.querySelectorAll('img'), resolve);
   });
 };
 // And then..
 preloadImages().then(() => {
   // Remove the loader
-  document.body.classList.remove("loading");
+  document.body.classList.remove('loading');
   const effect = new RGBShiftEffect(container, itemsWrapper, {
-    strength: 0.25,
+    strength: 0.25
   });
 });
 
@@ -339,30 +204,16 @@ function raf(time) {
 
 requestAnimationFrame(raf);
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   // add timeout
-//   setTimeout(function () {
-//     // function onLoad(spline) {
-//     const obj = spline.findObjectByName("SMALL FINAL");
-//     cube.current = obj;
-//     console.log(cube.current);
-//     //}
-//   }, 5000);
-// });
-
 // circle text
-new CircleType(document.getElementById("circletext"));
-
-//
+new CircleType(document.getElementById('circletext'));
 
 // video rendering
-
-const video = document.getElementById("videoSource");
-const canvases = document.querySelectorAll(".video-canvas");
-const context = Array.from(canvases).map((canvas) => canvas.getContext("2d"));
+const video = document.getElementById('videoSource');
+const canvases = document.querySelectorAll('.video-canvas');
+const context = Array.from(canvases).map(canvas => canvas.getContext('2d'));
 
 video.addEventListener(
-  "play",
+  'play',
   function () {
     draw(video, context, canvases);
   },
@@ -373,23 +224,13 @@ function draw(video, context, canvases) {
   if (video.paused || video.ended) return false;
   context.forEach((ctx, index) => {
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
+    ctx.imageSmoothingQuality = 'high';
 
     const widthAdjustmentPercentage = 0.1; // Adjust this value as needed (e.g., 0.10 for 10%)
     const sliceWidth = video.videoWidth / canvases.length;
     const widthAdjustment = sliceWidth * widthAdjustmentPercentage;
 
-    ctx.drawImage(
-      video,
-      sliceWidth * index,
-      0,
-      sliceWidth,
-      video.videoHeight,
-      0,
-      0,
-      canvases[index].width,
-      canvases[index].height
-    );
+    ctx.drawImage(video, sliceWidth * index, 0, sliceWidth, video.videoHeight, 0, 0, canvases[index].width, canvases[index].height);
   });
   requestAnimationFrame(() => draw(video, context, canvases));
 }
