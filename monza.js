@@ -11,13 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "expo.out",
     delay: 1,
   });
-  tl.from(".hero-decoration, .header-span.hero", {
+  tl.from(".header-span.hero", {
     y: "200%",
-    stagger: 0.05,
+    stagger: 0.07,
     duration: 0.6,
     ease: "expo.out",
     delay: -2,
   });
+  tl.from(".hero-decoration", {
+    y: "200%",
+    stagger: 0.03,
+    duration: 0.6,
+    ease: "expo.out",
+    delay: -2,
+  });
+
   gsap.to(".circular.outer", {
     rotation: 360,
     duration: 30,
