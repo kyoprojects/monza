@@ -52,7 +52,8 @@ gsap.timeline({
     onEnterBack: () => {
       document.querySelector('.header-container').style.mixBlendMode = 'normal';
 
-      gsap.to('.hero-decoration, .header-span.hero', { y: '0', stagger: -0.08, duration: 1, ease: 'expo.out' });
+      gsap.to(visibleHeroSpans, { y: '0', stagger: -0.08, duration: 1, ease: 'expo.out' });
+      gsap.to('.hero-decoration', { y: '0', stagger: -0.08, duration: 1, ease: 'expo.out' });
       gsap.to('.sectionunderlay-slide', { y: '0', stagger: -0.1, duration: 3, ease: 'expo.out', delay: 0.3 });
     }
     //   onLeaveBack: () => {
