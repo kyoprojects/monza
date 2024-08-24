@@ -526,3 +526,57 @@ function draw(video, context, canvases) {
 //     });
 //   });
 // }
+
+const swiper = new Swiper('.swiper', {
+  loop: true,
+  slidesPerView: 3,
+  spaceBetween: 0,
+  allowTouchMove: true,
+  centeredSlides: true,
+  speed: 300,
+  scrollbar: { el: '.swiper-scrollbar', draggable: true },
+  // freeMode: true,
+  // slideToClickedSlide: true,
+  on: {
+    click: swiper => {
+      if (swiper.clickedIndex > swiper.activeIndex) {
+        swiper.slideNext();
+      } else {
+        swiper.slidePrev();
+      }
+    }
+  },
+
+  navigation: { nextEl: '.swiper-btn-next', prevEl: '.swiper-btn-prev' }
+});
+
+// // Add click event listener to each slide, excluding the active slide
+// document.querySelectorAll('.swiper-slide').forEach(slide => {
+//   if (!slide.classList.contains('swiper-slide-active')) {
+//     slide.addEventListener('click', () => {
+//       const realIndex = slide.getAttribute('data-swiper-slide-index');
+//       swiper.slideToLoop(realIndex);
+//     });
+//   }
+// });
+
+// magnetic swiper
+const wrappers = document.querySelectorAll('.gallery-image_wrapper');
+console.log(wrappers);
+
+wrappers.forEach(wrapper => {
+  wrapper.addEventListener('mousemove', function (e) {
+    const rect = wrapper.getBoundingClientRect();
+    const relX = e.clientX - rect.left;
+    const relY = e.clientY - rect.top;
+
+    const moveX = (relX - rect.width / 2) * 0.1; // Adjust the 0.1 value to change the strength of the effect
+    const moveY = (relY - rect.height / 2) * 0.1; // Adjust the 0.1 value to change the strength of the effect
+
+    gsap.to(wrapper, { duration: 0.3, x: moveX, y: moveY, ease: 'power2.out' });
+  });
+
+  wrapper.addEventListener('mouseleave', function () {
+    gsap.to(wrapper, { duration: 0.5, x: 0, y: 0, ease: 'power2.out' });
+  });
+});
