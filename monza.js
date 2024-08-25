@@ -25,12 +25,12 @@ gsap.to('.circular.inner', { rotation: -360, duration: 30, repeat: -1, ease: 'no
 
 // hero scroll animation
 function initHeroTimeline() {
-  let heroTimeline = gsap.timeline({ paused: true });
+  let heroTimeline = gsap.timeline({ defaults: { ease: 'expo.out' }, paused: true });
 
   heroTimeline
-    .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-250%', stagger: 0.08, duration: 1, ease: 'expo.out' })
-    .fromTo('.hero-decoration', { y: '0%' }, { y: '-250%', stagger: 0.08, duration: 1, ease: 'expo.out' }, '<')
-    .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 3, ease: 'expo.out' }, '<')
+    .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-200%', stagger: 0.06, duration: 1 })
+    .fromTo('.hero-decoration', { y: '0%' }, { y: '-150%', stagger: 0.1, duration: 1.5 }, '<')
+    .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
     .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
 
   const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
@@ -45,15 +45,16 @@ function initHeroTimeline() {
     preventOverlaps: true,
     markers: true,
     onToggle({ direction }) {
-      // Determine the appropriate easing function
-      const easeType = direction === 1 ? 'expo.out' : 'expo.in';
-      console.log('Applying Ease:', easeType);
-
-      // Manually update the easing for each tween in the timeline
-      heroTimeline.getChildren().forEach((tween, index) => {
-        tween.vars.ease = easeType;
-        console.log(`Tween ${index + 1} Ease Updated to:`, tween.vars.ease);
-      });
+      // // Determine the appropriate easing function for the timeline's playhead
+      // const easeType = direction === 1 ? 'expo.out' : 'expo.in';
+      // console.log('Applying Ease:', easeType);
+      // // Use .tweenTo() to control the timeline's progress with easing
+      // const targetTime = direction === 1 ? heroTimeline.duration() : 0;
+      // heroTimeline.tweenTo(targetTime, {
+      //   ease: easeType,
+      //   overwrite: true,
+      //   duration: 1 // Adjust duration as needed
+      // });
     }
   });
 }
@@ -167,9 +168,7 @@ gsap.fromTo(
   { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
 );
 
-/// threejs
-
-// const container = document.body;
+/// threejs distorted images on hover
 const container = document.querySelector('.triggercontainer');
 const itemsWrapper = document.querySelector('.hoverwrap');
 // Preload images
@@ -178,9 +177,8 @@ const preloadImages = () => {
     imagesLoaded(document.querySelectorAll('img'), resolve);
   });
 };
-// And then..
 preloadImages().then(() => {
-  // Remove the loader
+  // remove loader
   document.body.classList.remove('loading');
   const effect = new RGBShiftEffect(container, itemsWrapper, {
     strength: 0.25
@@ -188,46 +186,43 @@ preloadImages().then(() => {
 });
 
 // lenis
-
 const lenis = new Lenis();
-
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
 }
-
 requestAnimationFrame(raf);
 
 // circle text
 new CircleType(document.getElementById('circletext'));
 
-// video rendering
-const video = document.getElementById('videoSource');
-const canvases = document.querySelectorAll('.video-canvas');
-const context = Array.from(canvases).map(canvas => canvas.getContext('2d'));
+// // video rendering
+// const video = document.getElementById('videoSource');
+// const canvases = document.querySelectorAll('.video-canvas');
+// const context = Array.from(canvases).map(canvas => canvas.getContext('2d'));
 
-video.addEventListener(
-  'play',
-  function () {
-    draw(video, context, canvases);
-  },
-  false
-);
+// video.addEventListener(
+//   'play',
+//   function () {
+//     draw(video, context, canvases);
+//   },
+//   false
+// );
 
-function draw(video, context, canvases) {
-  if (video.paused || video.ended) return false;
-  context.forEach((ctx, index) => {
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
+// function draw(video, context, canvases) {
+//   if (video.paused || video.ended) return false;
+//   context.forEach((ctx, index) => {
+//     ctx.imageSmoothingEnabled = true;
+//     ctx.imageSmoothingQuality = 'high';
 
-    const widthAdjustmentPercentage = 0.1; // Adjust this value as needed (e.g., 0.10 for 10%)
-    const sliceWidth = video.videoWidth / canvases.length;
-    const widthAdjustment = sliceWidth * widthAdjustmentPercentage;
+//     const widthAdjustmentPercentage = 0.1; // Adjust this value as needed (e.g., 0.10 for 10%)
+//     const sliceWidth = video.videoWidth / canvases.length;
+//     const widthAdjustment = sliceWidth * widthAdjustmentPercentage;
 
-    ctx.drawImage(video, sliceWidth * index, 0, sliceWidth, video.videoHeight, 0, 0, canvases[index].width, canvases[index].height);
-  });
-  requestAnimationFrame(() => draw(video, context, canvases));
-}
+//     ctx.drawImage(video, sliceWidth * index, 0, sliceWidth, video.videoHeight, 0, 0, canvases[index].width, canvases[index].height);
+//   });
+//   requestAnimationFrame(() => draw(video, context, canvases));
+// }
 
 // // logos
 
@@ -539,19 +534,15 @@ const swiper = new Swiper('.swiper', {
       }
     }
   },
-
-  navigation: { nextEl: '.swiper-btn-next', prevEl: '.swiper-btn-prev' }
+  navigation: { nextEl: '.swiper-btn-next', prevEl: '.swiper-btn-prev' },
+  breakpoints: {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 20
+    }
+  }
 });
-
-// // Add click event listener to each slide, excluding the active slide
-// document.querySelectorAll('.swiper-slide').forEach(slide => {
-//   if (!slide.classList.contains('swiper-slide-active')) {
-//     slide.addEventListener('click', () => {
-//       const realIndex = slide.getAttribute('data-swiper-slide-index');
-//       swiper.slideToLoop(realIndex);
-//     });
-//   }
-// });
 
 // magnetic swiper
 const wrappers = document.querySelectorAll('.gallery-image_wrapper');
