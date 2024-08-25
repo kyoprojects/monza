@@ -1,6 +1,6 @@
 console.log('Hello, World!');
 gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.normalizeScroll(true);
+// ScrollTrigger.normalizeScroll(true);
 
 //
 
