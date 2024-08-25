@@ -79,16 +79,16 @@ gsap.timeline({
   }
 });
 
-// Image gallery slides timeline
-gsap
-  .timeline({
-    scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
-  })
-  .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
-  .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
-  .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
-  .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
-  .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
+// // Image gallery slides timeline
+// gsap
+//   .timeline({
+//     scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
+//   })
+//   .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
+//   .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
+//   .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
+//   .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
+//   .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
 
 //
 
@@ -96,42 +96,42 @@ gsap
 
 const sections = document.querySelectorAll('.sticky-section-wrap');
 
-sections.forEach((section, index) => {
-  var body = section.querySelector('.sticky-section-body');
-  var hoverLink = section.querySelector('[hover-image]');
-  var contentHeight = body.clientHeight;
-  // console.log(body);
-  ScrollTrigger.create({
-    trigger: `.sticky-pseudo:nth-child(${index + 1})`,
-    start: 'top top',
-    end: 'bottom top',
-    // body text
-    onEnter: () => {
-      gsap.fromTo(body, { opacity: 0, autoAlpha: 0, height: 0 }, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 0.3, ease: 'sine.out' });
-      gsap.fromTo(section, { opacity: 0.4 }, { opacity: 1, duration: 0.3 });
-      gsap.fromTo(hoverLink, { display: 'none' }, { display: 'block', delay: 0.1 });
-      // hoverLink.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
-    },
-    onLeave: () => {
-      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 0.3, ease: 'sine.out' });
-      gsap.to(section, { opacity: 0.4, duration: 0.3 });
-      gsap.to(hoverLink, { display: 'none' });
-      hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-    },
-    onEnterBack: () => {
-      gsap.to(body, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 0.3, ease: 'sine.out' });
-      gsap.to(section, { opacity: 1, duration: 0.3 });
-      gsap.to(hoverLink, { display: 'block', delay: 0.1 });
-      hoverLink.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-    },
-    onLeaveBack: () => {
-      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 0.3, ease: 'sine.out' });
-      gsap.to(section, { opacity: 0.4, duration: 0.3 });
-      gsap.to(hoverLink, { display: 'none' });
-      hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-    }
-  });
-});
+// sections.forEach((section, index) => {
+//   var body = section.querySelector('.sticky-section-body');
+//   var hoverLink = section.querySelector('[hover-image]');
+//   var contentHeight = body.clientHeight;
+//   // console.log(body);
+//   ScrollTrigger.create({
+//     trigger: `.sticky-pseudo:nth-child(${index + 1})`,
+//     start: 'top top',
+//     end: 'bottom top',
+//     // body text
+//     onEnter: () => {
+//       gsap.fromTo(body, { opacity: 0, autoAlpha: 0, height: 0 }, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 0.3, ease: 'sine.out' });
+//       gsap.fromTo(section, { opacity: 0.4 }, { opacity: 1, duration: 0.3 });
+//       gsap.fromTo(hoverLink, { display: 'none' }, { display: 'block', delay: 0.1 });
+//       // hoverLink.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+//     },
+//     onLeave: () => {
+//       gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 0.3, ease: 'sine.out' });
+//       gsap.to(section, { opacity: 0.4, duration: 0.3 });
+//       gsap.to(hoverLink, { display: 'none' });
+//       hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+//     },
+//     onEnterBack: () => {
+//       gsap.to(body, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 0.3, ease: 'sine.out' });
+//       gsap.to(section, { opacity: 1, duration: 0.3 });
+//       gsap.to(hoverLink, { display: 'block', delay: 0.1 });
+//       hoverLink.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+//     },
+//     onLeaveBack: () => {
+//       gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 0.3, ease: 'sine.out' });
+//       gsap.to(section, { opacity: 0.4, duration: 0.3 });
+//       gsap.to(hoverLink, { display: 'none' });
+//       hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+//     }
+//   });
+// });
 // setTimeout(() => {
 gsap.set('.sticky-section-body', { height: '0' });
 gsap.set('[hover-image]', { display: 'none' });
