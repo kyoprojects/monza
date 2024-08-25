@@ -157,13 +157,13 @@ const sections = document.querySelectorAll('.sticky-section-wrap');
 
 //
 
-// gsap.set('.footer-slide', { y: '100%' });
-// gsap.set('.footer-container', { y: '100px', opacity: 0 });
-// gsap.fromTo(
-//   '.whatsapp-button-radial',
-//   { opacity: 0 }, // Start state
-//   { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
-// );
+gsap.set('.footer-slide', { y: '100%' });
+gsap.set('.footer-container', { y: '100px', opacity: 0 });
+gsap.fromTo(
+  '.whatsapp-button-radial',
+  { opacity: 0 }, // Start state
+  { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
+);
 
 /// threejs distorted images on hover
 const container = document.querySelector('.triggercontainer');
@@ -220,70 +220,6 @@ new CircleType(document.getElementById('circletext'));
 //   });
 //   requestAnimationFrame(() => draw(video, context, canvases));
 // }
-
-// // logos
-
-// const container = document.querySelector(".circle-container");
-// const logos = document.querySelectorAll(".logo");
-// const total = logos.length;
-
-// const containerWidth = container.offsetWidth;
-// const containerHeight = container.offsetHeight;
-
-// // Define the semi-major axis (a) and semi-minor axis (b)
-// const a = containerWidth / 2 - logos[0].offsetWidth / 2; // Horizontal radius adjusted for logo size
-// const b = containerHeight / 2 - logos[0].offsetHeight / 2; // Vertical radius adjusted for logo size
-
-// logos.forEach((logo, index) => {
-//   const angle = (index / total) * (2 * Math.PI); // Full circle in radians
-//   const x = a * Math.cos(angle);
-//   const y = b * Math.sin(angle);
-
-//   // Adjust positions based on the size of the logos to center them
-//   logo.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-// });
-
-////
-
-// // logo animation
-// document.addEventListener("DOMContentLoaded", function () {
-//   const logos = document.querySelectorAll(".logo");
-
-//   window.addEventListener("mousemove", function (e) {
-//     logos.forEach((logo) => {
-//       const logoRect = logo.getBoundingClientRect();
-//       const centerX = logoRect.left + logoRect.width / 2;
-//       const centerY = logoRect.top + logoRect.height / 2;
-
-//       // Calculate the distance from the center of the logo to the cursor
-//       const deltaX = e.clientX - centerX;
-//       const deltaY = e.clientY - centerY;
-
-//       // Calculate skew values: more pronounced skew as the cursor moves further from the logo's center
-//       const skewY = deltaX / -30; // Creates a tilt effect as if the logos are facing the cursor
-//       const skewX = deltaY / 30; // Optional: Adds a little vertical tilt, remove if not desired
-
-//       // Use GSAP to animate the skew
-//       gsap.to(logo, {
-//         skewX: skewX,
-//         skewY: skewY,
-//         duration: 0.5, // Quick reaction time
-//         ease: "power1.out",
-//         transformOrigin: "center center",
-//       });
-//     });
-//   });
-
-//   // Reset skew on mouse leave
-//   window.addEventListener("mouseleave", function () {
-//     gsap.to(logos, {
-//       skewX: 0,
-//       skewY: 0,
-//       duration: 0.5,
-//       ease: "power1.out",
-//     });
-//   });
-// });
 
 //
 
