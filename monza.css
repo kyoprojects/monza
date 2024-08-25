@@ -1,3 +1,13 @@
+:root {
+  --vh: 100vh;
+}
+
+.container {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/**/
+
 @media (max-width: 400px) {
   .swiper {
     overflow: visible !important;
