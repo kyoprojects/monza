@@ -2,6 +2,7 @@
   --vh: 100vh;
 }
 
+/**/
 [prevent-resize] {
   height: --vh;
 }

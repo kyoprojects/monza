@@ -2,6 +2,7 @@ function setVh() {
   let vh = window.innerHeight;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
+//
 
 // Initial setting of the --vh variable
 setVh();
