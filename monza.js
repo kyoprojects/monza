@@ -537,7 +537,7 @@ const swiper = new Swiper('.swiper', {
   navigation: { nextEl: '.swiper-btn-next', prevEl: '.swiper-btn-prev' },
   breakpoints: {
     // when window width is >= 320px
-    320: {
+    400: {
       slidesPerView: 3,
       spaceBetween: 0
     }

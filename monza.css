@@ -1,3 +1,13 @@
+@media (max-width: 400px) {
+  .swiper {
+    overflow: visible !important;
+  }
+
+  .swiper * {
+    overflow: visible !important;
+  }
+}
+
 /* Rule for the active slide */
 .swiper-slide-active .gallery-image_wrapper {
   transform: scale(0.8) !important;
