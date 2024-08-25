@@ -539,22 +539,22 @@ const swiper = new Swiper('.swiper', {
 });
 
 // magnetic swiper
-const wrappers = document.querySelectorAll('.gallery-image_wrapper');
-console.log(wrappers);
+// const wrappers = document.querySelectorAll('.gallery-image_wrapper');
+// console.log(wrappers);
 
-wrappers.forEach(wrapper => {
-  wrapper.addEventListener('mousemove', function (e) {
-    const rect = wrapper.getBoundingClientRect();
-    const relX = e.clientX - rect.left;
-    const relY = e.clientY - rect.top;
+// wrappers.forEach(wrapper => {
+//   wrapper.addEventListener('mousemove', function (e) {
+//     const rect = wrapper.getBoundingClientRect();
+//     const relX = e.clientX - rect.left;
+//     const relY = e.clientY - rect.top;
 
-    const moveX = (relX - rect.width / 2) * 0.1; // Adjust the 0.1 value to change the strength of the effect
-    const moveY = (relY - rect.height / 2) * 0.1; // Adjust the 0.1 value to change the strength of the effect
+//     const moveX = (relX - rect.width / 2) * 0.1; // Adjust the 0.1 value to change the strength of the effect
+//     const moveY = (relY - rect.height / 2) * 0.1; // Adjust the 0.1 value to change the strength of the effect
 
-    gsap.to(wrapper, { duration: 0.3, x: moveX, y: moveY, ease: 'power2.out' });
-  });
+//     gsap.to(wrapper, { duration: 0.3, x: moveX, y: moveY, ease: 'power2.out' });
+//   });
 
-  wrapper.addEventListener('mouseleave', function () {
-    gsap.to(wrapper, { duration: 0.5, x: 0, y: 0, ease: 'power2.out' });
-  });
-});
+//   wrapper.addEventListener('mouseleave', function () {
+//     gsap.to(wrapper, { duration: 0.5, x: 0, y: 0, ease: 'power2.out' });
+//   });
+// });
