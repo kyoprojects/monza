@@ -85,10 +85,10 @@ gsap
     scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
   })
   .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
-  .fromTo('[image-slide-2]', { y: '400px' }, { y: '-20px' }, '<')
-  .fromTo('[image-slide-3]', { y: '600px' }, { y: '-300px' }, '<')
-  .fromTo('[image-slide-4]', { y: '600px' }, { y: '-100px' }, '<')
-  .fromTo('[image-slide-5]', { y: '600px' }, { y: '-400px' }, '<');
+  .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
+  .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
+  .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
+  .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
 
 //
 
@@ -107,26 +107,26 @@ sections.forEach((section, index) => {
     end: 'bottom top',
     // body text
     onEnter: () => {
-      gsap.fromTo(body, { opacity: 0, autoAlpha: 0, height: 0 }, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 1, ease: 'expo.out' });
-      gsap.fromTo(section, { opacity: 0.4 }, { opacity: 1 });
+      gsap.fromTo(body, { opacity: 0, autoAlpha: 0, height: 0 }, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 0.3, ease: 'sine.out' });
+      gsap.fromTo(section, { opacity: 0.4 }, { opacity: 1, duration: 0.3 });
       gsap.fromTo(hoverLink, { display: 'none' }, { display: 'block', delay: 0.1 });
       // hoverLink.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
     },
     onLeave: () => {
-      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 1, ease: 'expo.out' });
-      gsap.to(section, { opacity: 0.4 });
+      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 0.3, ease: 'sine.out' });
+      gsap.to(section, { opacity: 0.4, duration: 0.3 });
       gsap.to(hoverLink, { display: 'none' });
       hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
     },
     onEnterBack: () => {
-      gsap.to(body, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 1, ease: 'expo.out' });
-      gsap.to(section, { opacity: 1 });
+      gsap.to(body, { opacity: 1, autoAlpha: 1, height: contentHeight, duration: 0.3, ease: 'sine.out' });
+      gsap.to(section, { opacity: 1, duration: 0.3 });
       gsap.to(hoverLink, { display: 'block', delay: 0.1 });
       hoverLink.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
     },
     onLeaveBack: () => {
-      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 1, ease: 'expo.out' });
-      gsap.to(section, { opacity: 0.4 });
+      gsap.to(body, { opacity: 0, autoAlpha: 0, height: 0, duration: 0.3, ease: 'sine.out' });
+      gsap.to(section, { opacity: 0.4, duration: 0.3 });
       gsap.to(hoverLink, { display: 'none' });
       hoverLink.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
     }
