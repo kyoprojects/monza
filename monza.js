@@ -1,6 +1,7 @@
 console.log('Hello, World!');
 gsap.registerPlugin(ScrollTrigger);
-// ScrollTrigger.normalizeScroll(true);
+ScrollTrigger.config({ ignoreMobileResize: true });
+ScrollTrigger.normalizeScroll(true);
 
 //
 
