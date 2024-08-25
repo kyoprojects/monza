@@ -165,22 +165,22 @@ const sections = document.querySelectorAll('.sticky-section-wrap');
 //   { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
 // );
 
-/// threejs distorted images on hover
-const container = document.querySelector('.triggercontainer');
-const itemsWrapper = document.querySelector('.hoverwrap');
-// Preload images
-const preloadImages = () => {
-  return new Promise((resolve, reject) => {
-    imagesLoaded(document.querySelectorAll('img'), resolve);
-  });
-};
-preloadImages().then(() => {
-  // remove loader
-  document.body.classList.remove('loading');
-  const effect = new RGBShiftEffect(container, itemsWrapper, {
-    strength: 0.25
-  });
-});
+// /// threejs distorted images on hover
+// const container = document.querySelector('.triggercontainer');
+// const itemsWrapper = document.querySelector('.hoverwrap');
+// // Preload images
+// const preloadImages = () => {
+//   return new Promise((resolve, reject) => {
+//     imagesLoaded(document.querySelectorAll('img'), resolve);
+//   });
+// };
+// preloadImages().then(() => {
+//   // remove loader
+//   document.body.classList.remove('loading');
+//   const effect = new RGBShiftEffect(container, itemsWrapper, {
+//     strength: 0.25
+//   });
+// });
 
 // // lenis
 // const lenis = new Lenis();
