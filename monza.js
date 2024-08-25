@@ -13,59 +13,52 @@ const isVisible = element => {
 const visibleHeroSpans = Array.from(heroSpans).filter(isVisible);
 console.log(visibleHeroSpans);
 
-/// initial entrance animations
+/// hero initial entrance animations
 const tl = gsap.timeline();
 tl.to('.preloaderslide.preloader', { y: '-100%', stagger: 0.1, duration: 2, ease: 'expo.out', delay: 1 })
   .from(visibleHeroSpans, { y: '200%', stagger: 0.07, duration: 0.6, ease: 'expo.out' }, '-=2')
-  .from('.hero-decoration', { y: '200%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '-=1');
+  .from('.hero-decoration', { y: '200%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '-=1')
+  .call(initHeroTimeline);
 
 gsap.to('.circular.outer', { rotation: 360, duration: 30, repeat: -1, ease: 'none' });
 gsap.to('.circular.inner', { rotation: -360, duration: 30, repeat: -1, ease: 'none' });
 
-// top timeline
-gsap.timeline({
-  scrollTrigger: {
+// hero scroll animation
+function initHeroTimeline() {
+  let heroTimeline = gsap.timeline({ paused: true });
+
+  heroTimeline
+    .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-250%', stagger: 0.08, duration: 1, ease: 'expo.out' })
+    .fromTo('.hero-decoration', { y: '0%' }, { y: '-250%', stagger: 0.08, duration: 1, ease: 'expo.out' }, '<')
+    .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 3, ease: 'expo.out' }, '<')
+    .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
+
+  const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
+
+  ScrollTrigger.create({
+    animation: heroTimeline,
     trigger: 'body',
     start: 'top top',
-    end: '+=50px', // End after scrolling X px
-    // markers: true,
-    toggleActions: 'play none none none',
-
+    end: '+=50px',
+    toggleActions: 'none play reverse none',
     fastScrollEnd: true,
     preventOverlaps: true,
+    markers: true,
+    onToggle({ direction }) {
+      // Determine the appropriate easing function
+      const easeType = direction === 1 ? 'expo.out' : 'expo.in';
+      console.log('Applying Ease:', easeType);
 
-    onLeave: () => {
-      document.querySelector('.header-container').style.mixBlendMode = 'difference';
-
-      gsap.to(visibleHeroSpans, { y: '-250%', stagger: 0.08, duration: 1, delay: 0.05, ease: 'expo.out' });
-      gsap.to('.hero-decoration', { y: '-250%', stagger: 0.08, duration: 1, delay: 0.05, ease: 'expo.out' });
-      gsap.to('.sectionunderlay-slide', { y: '-100%', stagger: 0.1, duration: 3, ease: 'expo.out', delay: 0.2 });
-    },
-    //   onLeave: () => {
-    //     gsap.to(".header-span.hero", {
-    //       y: "-250%",
-    //       stagger: 0.08,
-    //       duration: 1,
-    //       ease: "expo.out",
-    //     });
-    //   },
-    onEnterBack: () => {
-      document.querySelector('.header-container').style.mixBlendMode = 'normal';
-
-      gsap.to(visibleHeroSpans, { y: '0', stagger: -0.08, duration: 1, ease: 'expo.out' });
-      gsap.to('.hero-decoration', { y: '0', stagger: -0.08, duration: 1, ease: 'expo.out' });
-      gsap.to('.sectionunderlay-slide', { y: '0', stagger: -0.1, duration: 3, ease: 'expo.out', delay: 0.3 });
+      // Manually update the easing for each tween in the timeline
+      heroTimeline.getChildren().forEach((tween, index) => {
+        tween.vars.ease = easeType;
+        console.log(`Tween ${index + 1} Ease Updated to:`, tween.vars.ease);
+      });
     }
-    //   onLeaveBack: () => {
-    //     gsap.to(".header-span.hero", {
-    //       y: "-250%",
-    //       stagger: 0.08,
-    //       duration: 1,
-    //       ease: "expo.out",
-    //     });
-    //   },
-  }
-});
+  });
+}
+
+//
 
 // bottom timeline
 gsap.timeline({
