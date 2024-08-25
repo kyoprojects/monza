@@ -13,6 +13,7 @@ window.addEventListener('resize', setVh);
 console.log('Hello, World!');
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
+let breakpoints = gsap.matchMedia();
 
 // ScrollTrigger.normalizeScroll(true);
 
@@ -94,16 +95,28 @@ gsap.timeline({
 });
 
 // Image gallery slides timeline
-gsap
-  .timeline({
-    scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
-  })
-  .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
-  .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
-  .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
-  .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
-  .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
-
+mm.add('(min-width: 401px)', () => {
+  gsap
+    .timeline({
+      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
+    })
+    .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
+    .fromTo('[image-slide-2]', { y: '200px' }, { y: '-150px' }, '<')
+    .fromTo('[image-slide-3]', { y: '300px' }, { y: '-200px' }, '<')
+    .fromTo('[image-slide-4]', { y: '300px' }, { y: '-200px' }, '<')
+    .fromTo('[image-slide-5]', { y: '200px' }, { y: '-100px' }, '<');
+});
+mm.add('(max-width: 400px)', () => {
+  gsap
+    .timeline({
+      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
+    })
+    .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
+    .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
+    .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
+    .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
+    .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
+});
 //
 
 // sticky section
