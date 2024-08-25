@@ -518,7 +518,7 @@ new CircleType(document.getElementById('circletext'));
 const swiper = new Swiper('.swiper', {
   loop: true,
   slidesPerView: 1,
-  spaceBetween: 20,
+  spaceBetween: 0,
   allowTouchMove: true,
   centeredSlides: true,
   speed: 300,
@@ -538,8 +538,7 @@ const swiper = new Swiper('.swiper', {
   breakpoints: {
     // when window width is >= 320px
     400: {
-      slidesPerView: 3,
-      spaceBetween: 0
+      slidesPerView: 3
     }
   }
 });
