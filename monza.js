@@ -1,5 +1,6 @@
 console.log('Hello, World!');
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
 
 gsap.set('.sectionunderlay-slide', { y: '0' });
 
@@ -15,7 +16,7 @@ console.log(visibleHeroSpans);
 
 /// hero initial entrance animations
 const tl = gsap.timeline();
-tl.to('.preloaderslide.preloader', { y: '-100%', stagger: 0.1, duration: 2, ease: 'expo.out', delay: 1 })
+tl.to('.preloaderslide.preloader', { y: '-100%', stagger: 0.08, duration: 1.5, ease: 'expo.out', delay: 1 })
   .from(visibleHeroSpans, { y: '200%', stagger: 0.07, duration: 0.6, ease: 'expo.out' }, '-=2')
   .from('.hero-decoration', { y: '200%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '-=1')
   .call(initHeroTimeline);

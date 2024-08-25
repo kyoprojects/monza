@@ -44,15 +44,11 @@
   transform: translateY(0px) !important;
 }
 
-/* [data-swiper-slide-index='2'] {
-  height: 700px !important;
-} */
+/**/
 
 [pageload-visibility] {
   display: flex !important;
 }
-
-/**/
 
 * {
   box-sizing: border-box;
