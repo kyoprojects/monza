@@ -2,8 +2,8 @@
   --vh: 100vh;
 }
 
-.container {
-  height: calc(var(--vh, 1vh) * 100);
+[prevent-resize] {
+  height: --vh;
 }
 
 /**/
