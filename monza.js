@@ -17,7 +17,7 @@ console.log(visibleHeroSpans);
 /// hero initial entrance animations
 const tl = gsap.timeline();
 tl.to('.preloaderslide.preloader', { y: '-100%', stagger: 0.08, duration: 1.5, ease: 'expo.out', delay: 1 })
-  .from(visibleHeroSpans, { y: '200%', stagger: 0.07, duration: 0.6, ease: 'expo.out' }, '-=2')
+  .from(visibleHeroSpans, { y: '200%', stagger: 0.07, duration: 0.8, ease: 'expo.out' }, '-=2')
   .from('.hero-decoration', { y: '200%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '-=1')
   .call(initHeroTimeline);
 
@@ -26,7 +26,7 @@ gsap.to('.circular.inner', { rotation: -360, duration: 30, repeat: -1, ease: 'no
 
 // hero scroll animation
 function initHeroTimeline() {
-  let heroTimeline = gsap.timeline({ defaults: { ease: 'expo.out' }, paused: true });
+  let heroTimeline = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
 
   heroTimeline
     .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-200%', stagger: 0.06, duration: 1 })
@@ -34,7 +34,7 @@ function initHeroTimeline() {
     .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
     .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
 
-  const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
+  // const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
 
   ScrollTrigger.create({
     animation: heroTimeline,
@@ -60,8 +60,6 @@ function initHeroTimeline() {
   });
 }
 
-//
-
 // bottom timeline
 gsap.timeline({
   scrollTrigger: {
@@ -81,10 +79,6 @@ gsap.timeline({
   }
 });
 
-//
-
-// image gallery slides timeline
-
 // Image gallery slides timeline
 gsap
   .timeline({
@@ -94,7 +88,7 @@ gsap
   .fromTo('[image-slide-2]', { y: '400px' }, { y: '-20px' }, '<')
   .fromTo('[image-slide-3]', { y: '600px' }, { y: '-300px' }, '<')
   .fromTo('[image-slide-4]', { y: '600px' }, { y: '-100px' }, '<')
-  .fromTo('[image-slide-5]', { y: '1800px' }, { y: '-450px' }, '<');
+  .fromTo('[image-slide-5]', { y: '600px' }, { y: '-400px' }, '<');
 
 //
 
