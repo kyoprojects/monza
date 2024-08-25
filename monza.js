@@ -155,13 +155,13 @@ gsap.set('.sticky-section-wrap', { opacity: 0.4 });
 
 //
 
-gsap.set('.footer-slide', { y: '100%' });
-gsap.set('.footer-container', { y: '100px', opacity: 0 });
-gsap.fromTo(
-  '.whatsapp-button-radial',
-  { opacity: 0 }, // Start state
-  { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
-);
+// gsap.set('.footer-slide', { y: '100%' });
+// gsap.set('.footer-container', { y: '100px', opacity: 0 });
+// gsap.fromTo(
+//   '.whatsapp-button-radial',
+//   { opacity: 0 }, // Start state
+//   { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
+// );
 
 /// threejs distorted images on hover
 const container = document.querySelector('.triggercontainer');
