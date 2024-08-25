@@ -4,14 +4,12 @@
   }
   /* Rule for the active slide */
   .swiper-slide-active .gallery-image_wrapper {
-    /* transform: scale(1) !important;, */
-    height: '100%' !important;
+    transform: scale(1) !important;
     opacity: 1;
   }
   /* Rule for any slide that is not active */
   .swiper-slide:not(.swiper-slide-active) .gallery-image_wrapper {
-    /* transform: scale(0.8) !important;, */
-    height: '80%' !important;
+    transform: scale(0.8) !important;
     opacity: 0.5;
   }
 }
