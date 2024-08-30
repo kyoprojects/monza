@@ -1,0 +1,76 @@
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<html>
+  <div class="section hero">
+    <div class="slider-column"></div>
+    <div class="slider-column"></div>
+    <div class="slider-column"></div>
+    <div class="slider-column"></div>
+    <div class="slider-column"></div>
+  </div>
+  <div class="section"></div>
+  <div class="section"></div>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .section {
+    display: flex;
+    direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
+  .slider-column {
+    width: 20%;
+    height: 100vh;
+    background-color: #000;
+    border: 3px solid red;
+  }
+</style>
+
+<script>
+  const slides = document.querySelectorAll('.slider-column');
+
+  let heroTimeline = gsap.timeline({ defaults: { ease: 'expo' }, paused: true });
+  heroTimeline.to(slides, { y: '-100%', stagger: 0.1, duration: 2.5 }).addPause();
+  heroTimelineExitTime = heroTimeline.duration();
+
+  heroTimelineReverse = gsap.timeline({ defaults: { ease: 'expo' }, paused: true });
+  heroTimelineReverse.to(slides, { y: '0%', stagger: -0.1, duration: 2.5 }).addPause();
+  heroTimelineReverseExitTime = heroTimelineReverse.duration();
+
+  ScrollTrigger.create({
+    // animation: heroTimeline,
+    trigger: 'body',
+    start: 'top top',
+    end: '+=50px',
+    // toggleActions: 'none play reverse none',
+    fastScrollEnd: true,
+    preventOverlaps: true,
+    markers: false,
+    onLeave: () => {
+      console.log('onLeave');
+      heroTimeline.play();
+    },
+    onEnterBack: () => {
+      console.log('onEnterBack');
+      if (heroTimeline.time() < heroTimelineExitTime) {
+        heroTimeline.reverse();
+      } else {
+        heroTimelineReverse.play();
+      }
+    },
+    onLeaveBack: () => {
+      console.log('onLeaveBack');
+      if (heroTimelineReverse.time() < heroTimelineReverseExitTime) {
+        heroTimelineReverse.reverse();
+      } else {
+        heroTimeline.play();
+      }
+    }
+  });
+</script>

@@ -46,7 +46,7 @@ function initHeroTimeline() {
     .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
     .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
 
-  // const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
+  const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
 
   ScrollTrigger.create({
     animation: heroTimeline,
@@ -72,11 +72,62 @@ function initHeroTimeline() {
   });
 }
 
+//   let heroTimeline = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
+
+//   heroTimeline
+//     .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-200%', stagger: 0.06, duration: 1 })
+//     .fromTo('.hero-decoration', { y: '0%' }, { y: '-150%', stagger: 0.1, duration: 1.5 }, '<')
+//     .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
+//     .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<')
+//     .addPause();
+//   heroTimelineExitTime = heroTimeline.duration();
+
+//   heroTimelineReverse = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
+//   heroTimelineReverse
+//     .fromTo(visibleHeroSpans, { y: '-200%' }, { y: '0%', stagger: -0.06, duration: 1 })
+//     .fromTo('.hero-decoration', { y: '-150%' }, { y: '0%', stagger: -0.1, duration: 1.5 }, '<')
+//     .fromTo('.sectionunderlay-slide', { y: '-100%' }, { y: '0%', stagger: -0.1, duration: 2.5 }, '<')
+//     .fromTo('.header-container', { mixBlendMode: 'difference' }, { mixBlendMode: 'normal' }, '<')
+//     .addPause();
+//   heroTimelineReverseExitTime = heroTimelineReverse.duration();
+
+//   ScrollTrigger.create({
+//     // animation: heroTimeline,
+//     trigger: 'body',
+//     start: 'top top',
+//     end: '+=50px',
+//     toggleActions: 'none play reverse none',
+//     fastScrollEnd: true,
+//     preventOverlaps: true,
+//     markers: false,
+//     onLeave: () => {
+//       heroTimeline.play();
+//     },
+//     onEnterBack: () => {
+//       if (heroTimelineExitTime.time() < exitTime) {
+//         heroTimeline.reverse();
+//       } else {
+//         heroTimelineReverse.play();
+//       }
+//     }
+//   });
+// }
+
+//
+
+gsap.set('.footer-slide', { y: '100%' });
+gsap.set('.footer-container', { y: '100px', opacity: 0 });
+gsap.fromTo(
+  '.whatsapp-button-radial',
+  { opacity: 0 }, // Start state
+  { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
+);
+
 // bottom timeline
 gsap.timeline({
   scrollTrigger: {
-    trigger: 'body',
-    start: 'bottom bottom',
+    trigger: '.footer-pseudo',
+    start: 'top 50%',
     end: '-=50px', // End after scrolling 20px
     // markers: true,
     toggleActions: 'play none none none',
@@ -179,13 +230,7 @@ gsap.from('.section-1-heading', {
 
 //
 
-gsap.set('.footer-slide', { y: '100%' });
-gsap.set('.footer-container', { y: '100px', opacity: 0 });
-gsap.fromTo(
-  '.whatsapp-button-radial',
-  { opacity: 0 }, // Start state
-  { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
-);
+// old footer placement
 
 /// threejs distorted images on hover
 const container = document.querySelector('.triggercontainer');

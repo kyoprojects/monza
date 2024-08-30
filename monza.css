@@ -5,6 +5,7 @@
 /**/
 [prevent-resize] {
   height: var(--vh);
+  max-height: var(--vh);
 }
 
 /**/
