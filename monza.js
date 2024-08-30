@@ -2,9 +2,6 @@ function setVh() {
   let vh = window.innerHeight;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
-//
-
-// Initial setting of the --vh variable
 setVh();
 
 // Update the value on window resize
@@ -13,7 +10,7 @@ window.addEventListener('resize', setVh);
 console.log('Hello, World!');
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
-let breakpoints = gsap.matchMedia();
+let mm = gsap.matchMedia();
 
 // ScrollTrigger.normalizeScroll(true);
 
