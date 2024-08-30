@@ -92,7 +92,7 @@ gsap.timeline({
 });
 
 // Image gallery slides timeline
-mm.add('(min-width: 401px)', () => {
+mm.add('(max-width: 400px)', () => {
   gsap
     .timeline({
       scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
@@ -103,7 +103,7 @@ mm.add('(min-width: 401px)', () => {
     .fromTo('[image-slide-4]', { y: '300px' }, { y: '-200px' }, '<')
     .fromTo('[image-slide-5]', { y: '200px' }, { y: '-100px' }, '<');
 });
-mm.add('(max-width: 400px)', () => {
+mm.add('(min-width: 401px)', () => {
   gsap
     .timeline({
       scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
@@ -215,324 +215,33 @@ requestAnimationFrame(raf);
 // circle text
 new CircleType(document.getElementById('circletext'));
 
-// // video rendering
-// const video = document.getElementById('videoSource');
-// const canvases = document.querySelectorAll('.video-canvas');
-// const context = Array.from(canvases).map(canvas => canvas.getContext('2d'));
+// video rendering
+const video = document.getElementById('videoSource');
+const canvases = document.querySelectorAll('.video-canvas');
+const context = Array.from(canvases).map(canvas => canvas.getContext('2d'));
 
-// video.addEventListener(
-//   'play',
-//   function () {
-//     draw(video, context, canvases);
-//   },
-//   false
-// );
+video.addEventListener(
+  'play',
+  function () {
+    draw(video, context, canvases);
+  },
+  false
+);
 
-// function draw(video, context, canvases) {
-//   if (video.paused || video.ended) return false;
-//   context.forEach((ctx, index) => {
-//     ctx.imageSmoothingEnabled = true;
-//     ctx.imageSmoothingQuality = 'high';
+function draw(video, context, canvases) {
+  if (video.paused || video.ended) return false;
+  context.forEach((ctx, index) => {
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
 
-//     const widthAdjustmentPercentage = 0.1; // Adjust this value as needed (e.g., 0.10 for 10%)
-//     const sliceWidth = video.videoWidth / canvases.length;
-//     const widthAdjustment = sliceWidth * widthAdjustmentPercentage;
+    const widthAdjustmentPercentage = 0.1; // Adjust this value as needed (e.g., 0.10 for 10%)
+    const sliceWidth = video.videoWidth / canvases.length;
+    const widthAdjustment = sliceWidth * widthAdjustmentPercentage;
 
-//     ctx.drawImage(video, sliceWidth * index, 0, sliceWidth, video.videoHeight, 0, 0, canvases[index].width, canvases[index].height);
-//   });
-//   requestAnimationFrame(() => draw(video, context, canvases));
-// }
-
-// // logos
-
-// const container = document.querySelector(".circle-container");
-// const logos = document.querySelectorAll(".logo");
-// const total = logos.length;
-
-// const containerWidth = container.offsetWidth;
-// const containerHeight = container.offsetHeight;
-
-// // Define the semi-major axis (a) and semi-minor axis (b)
-// const a = containerWidth / 2 - logos[0].offsetWidth / 2; // Horizontal radius adjusted for logo size
-// const b = containerHeight / 2 - logos[0].offsetHeight / 2; // Vertical radius adjusted for logo size
-
-// logos.forEach((logo, index) => {
-//   const angle = (index / total) * (2 * Math.PI); // Full circle in radians
-//   const x = a * Math.cos(angle);
-//   const y = b * Math.sin(angle);
-
-//   // Adjust positions based on the size of the logos to center them
-//   logo.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-// });
-
-////
-
-// // logo animation
-// document.addEventListener("DOMContentLoaded", function () {
-//   const logos = document.querySelectorAll(".logo");
-
-//   window.addEventListener("mousemove", function (e) {
-//     logos.forEach((logo) => {
-//       const logoRect = logo.getBoundingClientRect();
-//       const centerX = logoRect.left + logoRect.width / 2;
-//       const centerY = logoRect.top + logoRect.height / 2;
-
-//       // Calculate the distance from the center of the logo to the cursor
-//       const deltaX = e.clientX - centerX;
-//       const deltaY = e.clientY - centerY;
-
-//       // Calculate skew values: more pronounced skew as the cursor moves further from the logo's center
-//       const skewY = deltaX / -30; // Creates a tilt effect as if the logos are facing the cursor
-//       const skewX = deltaY / 30; // Optional: Adds a little vertical tilt, remove if not desired
-
-//       // Use GSAP to animate the skew
-//       gsap.to(logo, {
-//         skewX: skewX,
-//         skewY: skewY,
-//         duration: 0.5, // Quick reaction time
-//         ease: "power1.out",
-//         transformOrigin: "center center",
-//       });
-//     });
-//   });
-
-//   // Reset skew on mouse leave
-//   window.addEventListener("mouseleave", function () {
-//     gsap.to(logos, {
-//       skewX: 0,
-//       skewY: 0,
-//       duration: 0.5,
-//       ease: "power1.out",
-//     });
-//   });
-// });
-
-//
-// threejs logos
-
-// const logos = document.querySelectorAll(".logo img");
-// const imagesLoaded = Array.from(logos).map(
-//   (img) =>
-//     new Promise((resolve) => {
-//       if (img.complete) {
-//         resolve();
-//       } else {
-//         img.onload = resolve;
-//       }
-//     })
-// );
-
-// Promise.all(imagesLoaded).then(() => {
-//   // hide all logos
-//   const logos = document.querySelectorAll(".logo img");
-//   logos.forEach((logo) => {
-//     logo.style.display = "none";
-//   });
-//   initializeScene(logos);
-// });
-
-// function initializeScene(logos) {
-//   const logoCanvas = document.querySelector(".logo-canvas");
-
-//   const scene = new THREE.Scene();
-//   const camera = new THREE.PerspectiveCamera(
-//     75,
-//     window.innerWidth / window.innerHeight,
-//     0.1,
-//     1000
-//   );
-//   const renderer = new THREE.WebGLRenderer({
-//     canvas: logoCanvas,
-//     alpha: true,
-//     antialias: true,
-//   });
-//   renderer.setSize(window.innerWidth, window.innerHeight);
-
-//   const axesHelper = new THREE.AxesHelper(5);
-//   scene.add(axesHelper);
-
-//   const textureLoader = new THREE.TextureLoader();
-//   const logoMeshes = [];
-
-//   const container = document.querySelector(".circle-container");
-//   const total = logos.length;
-//   const containerWidth = container.offsetWidth;
-//   const containerHeight = container.offsetHeight;
-
-//   const a = containerWidth / 2 - logos[0].offsetWidth / 2;
-//   const b = containerHeight / 2 - logos[0].offsetHeight / 2;
-
-//   logos.forEach((logo, index) => {
-//     const angle = (index / total) * (2 * Math.PI);
-//     const x = a * Math.cos(angle);
-//     const y = b * Math.sin(angle);
-//     const scaleFactor = 0.015;
-
-//     // if (!logo.src.includes(".svg")) {
-//     if (true) {
-//       console.log(logo.src);
-//       const logoTexture = textureLoader.load(logo.src);
-//       const baseHeight = 2.5;
-//       const aspectRatio = logo.naturalWidth / logo.naturalHeight;
-//       const depth = 0.0;
-
-//       const geometry = new THREE.PlaneGeometry(
-//         baseHeight * aspectRatio,
-//         baseHeight,
-//         depth
-//       );
-//       const material = new THREE.ShaderMaterial({
-//         uniforms: {
-//           texture: { type: "t", value: logoTexture },
-//         },
-//         vertexShader: `
-//     varying vec2 vUv;
-//     void main() {
-//       vUv = uv;
-//       gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-//     }
-//   `,
-//         fragmentShader: `
-//     uniform sampler2D texture;
-//     varying vec2 vUv;
-//     void main() {
-//       vec4 color = texture2D(texture, vUv);
-//       float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-//       gl_FragColor = vec4(vec3(gray), color.a);
-//     }
-//   `,
-//         transparent: true,
-//         opacity: 1,
-//         side: THREE.DoubleSide,
-//       });
-
-//       const logoMesh = new THREE.Mesh(geometry, material);
-//       logoMesh.geometry.computeBoundingBox();
-//       logoMesh.position.set(x * scaleFactor, y * scaleFactor, 0);
-//       scene.add(logoMesh);
-//       logoMeshes.push(logoMesh);
-//     } else {
-//       const loader = new THREE.SVGLoader();
-//       loader.load(
-//         logo.src,
-//         function (data) {
-//           const paths = data.paths;
-//           console.log(paths);
-//           const group = new THREE.Group();
-
-//           paths.forEach((path) => {
-//             // const shapes = path.toShapes(true);
-//             const shapes = SVGLoader.createShapes(path);
-
-//             shapes.forEach((shape) => {
-//               const extrudeSettings = {
-//                 steps: 2,
-//                 depth: 40, // Adjust depth for the desired 3D effect
-//                 bevelEnabled: true,
-//               };
-
-//               const geometry = new THREE.ExtrudeGeometry(
-//                 shape,
-//                 extrudeSettings
-//               );
-//               const material = new THREE.MeshBasicMaterial({
-//                 map: textureLoader.load(
-//                   "https://uploads-ssl.webflow.com/6674190b466372b1e6a369d5/66a4d67b237ca3594e885dba_Porsche-Logo.png"
-//                 ),
-//                 color: path.userData.style.fill || 0xffffff,
-//                 side: THREE.DoubleSide,
-//               });
-
-//               const mesh = new THREE.Mesh(geometry, material);
-//               group.add(mesh);
-//             });
-//           });
-
-//           // Compute the bounding box to scale and center the group
-//           const boundingBox = new THREE.Box3().setFromObject(group);
-//           const size = boundingBox.getSize(new THREE.Vector3());
-//           const center = boundingBox.getCenter(new THREE.Vector3());
-
-//           // Manually set the desired size (height) in scene units
-//           const desiredHeight = 4; // Adjust this value as needed for your scene
-//           const scale = desiredHeight / size.y;
-//           group.scale.set(scale, scale, scale);
-//           group.position.set(
-//             x * scaleFactor - center.x * scale,
-//             y * scaleFactor - center.y * scale,
-//             -center.z * scale
-//           );
-
-//           // group.scale.set(scale, -scale, scale); // Flip the Y-axis to correct inversion
-
-//           scene.add(group);
-//           logoMeshes.push(group);
-//         },
-//         undefined,
-//         function (error) {
-//           console.error("An error happened during SVG loading:", error);
-//         }
-//       );
-//     }
-//   });
-
-//   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-//   scene.add(ambientLight);
-//   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-//   directionalLight.position.set(5, 5, 5).normalize();
-//   scene.add(directionalLight);
-
-//   camera.position.z = 10;
-
-//   function renderScene() {
-//     requestAnimationFrame(renderScene);
-//     renderer.render(scene, camera);
-//   }
-//   renderScene();
-
-//   function clamp(value, min, max) {
-//     return Math.min(Math.max(value, min), max);
-//   }
-//   window.addEventListener("mousemove", function (e) {
-//     logoMeshes.forEach((logoMesh) => {
-//       let bbox = new THREE.Box3();
-//       if (logoMesh instanceof THREE.Group) {
-//         logoMesh.children.forEach((child) => {
-//           const childBbox = new THREE.Box3().setFromObject(child);
-//           bbox.union(childBbox);
-//         });
-//       } else {
-//         bbox = logoMesh.geometry.boundingBox;
-//       }
-
-//       const center = new THREE.Vector3(
-//         (bbox.min.x + bbox.max.x) / 2,
-//         (bbox.min.y + bbox.max.y) / 2,
-//         (bbox.min.z + bbox.max.z) / 2
-//       );
-
-//       logoMesh.localToWorld(center);
-//       center.project(camera);
-
-//       const centerX = ((center.x + 1) / 2) * window.innerWidth;
-//       const centerY = (-(center.y - 1) / 2) * window.innerHeight;
-
-//       const deltaX = e.clientX - centerX;
-//       const deltaY = e.clientY - centerY;
-
-//       // Normalize and clamp rotation values
-//       const maxRotation = Math.PI / 18; // Maximum rotation angle in radians (10 degrees)
-//       const targetRotationY = clamp(deltaX / 500, -maxRotation, maxRotation);
-//       const targetRotationX = clamp(deltaY / 500, -maxRotation, maxRotation);
-
-//       gsap.to(logoMesh.rotation, {
-//         y: targetRotationY,
-//         x: targetRotationX,
-//         duration: 4,
-//       });
-//     });
-//   });
-// }
+    ctx.drawImage(video, sliceWidth * index, 0, sliceWidth, video.videoHeight, 0, 0, canvases[index].width, canvases[index].height);
+  });
+  requestAnimationFrame(() => draw(video, context, canvases));
+}
 
 const swiper = new Swiper('.swiper', {
   loop: true,
