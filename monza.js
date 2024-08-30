@@ -56,7 +56,7 @@ function initHeroTimeline() {
     toggleActions: 'none play reverse none',
     fastScrollEnd: true,
     preventOverlaps: true,
-    markers: true,
+    markers: false,
     onToggle({ direction }) {
       // // Determine the appropriate easing function for the timeline's playhead
       // const easeType = direction === 1 ? 'expo.out' : 'expo.in';
@@ -95,7 +95,7 @@ gsap.timeline({
 mm.add('(max-width: 400px)', () => {
   gsap
     .timeline({
-      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
+      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: false, toggleActions: 'play none none none' }
     })
     .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
     .fromTo('[image-slide-2]', { y: '200px' }, { y: '-150px' }, '<')
@@ -106,7 +106,7 @@ mm.add('(max-width: 400px)', () => {
 mm.add('(min-width: 401px)', () => {
   gsap
     .timeline({
-      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: true, toggleActions: 'play none none none' }
+      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: false, toggleActions: 'play none none none' }
     })
     .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
     .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
@@ -172,7 +172,7 @@ gsap.from('.section-1-heading', {
     trigger: '.triggercontainer',
     start: 'top 60%',
     end: 'bottom top',
-    markers: true,
+    markers: false,
     toggleActions: 'play none none none'
   }
 });
