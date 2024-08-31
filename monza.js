@@ -24,7 +24,8 @@ const isVisible = element => {
   return element.parentElement ? isVisible(element.parentElement) : true;
 };
 const visibleHeroSpans = Array.from(heroSpans).filter(isVisible);
-console.log(visibleHeroSpans);
+const slides = document.querySelectorAll('.sectionunderlay-slide');
+// console.log(visibleHeroSpans);
 
 /// hero initial entrance animations
 const tl = gsap.timeline();
@@ -38,106 +39,117 @@ gsap.to('.circular.inner', { rotation: -360, duration: 30, repeat: -1, ease: 'no
 
 // hero scroll animation
 function initHeroTimeline() {
-  let heroTimeline = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
+  //   let heroTimeline = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
 
-  heroTimeline
-    .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-200%', stagger: 0.06, duration: 1 })
-    .fromTo('.hero-decoration', { y: '0%' }, { y: '-150%', stagger: 0.1, duration: 1.5 }, '<')
-    .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
-    .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
+  //   heroTimeline
+  //     .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-200%', stagger: 0.06, duration: 1 })
+  //     .fromTo('.hero-decoration', { y: '0%' }, { y: '-150%', stagger: 0.1, duration: 1.5 }, '<')
+  //     .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
+  //     .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
 
-  const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
+  //   const durationMapper = gsap.utils.mapRange(0, 1000, 2, 0.5);
+
+  //   ScrollTrigger.create({
+  //     animation: heroTimeline,
+  //     trigger: 'body',
+  //     start: 'top top',
+  //     end: '+=50px',
+  //     toggleActions: 'none play reverse none',
+  //     fastScrollEnd: true,
+  //     preventOverlaps: true,
+  //     markers: false,
+  //     onToggle({ direction }) {
+  //       // // Determine the appropriate easing function for the timeline's playhead
+  //       // const easeType = direction === 1 ? 'expo.out' : 'expo.in';
+  //       // console.log('Applying Ease:', easeType);
+  //       // // Use .tweenTo() to control the timeline's progress with easing
+  //       // const targetTime = direction === 1 ? heroTimeline.duration() : 0;
+  //       // heroTimeline.tweenTo(targetTime, {
+  //       //   ease: easeType,
+  //       //   overwrite: true,
+  //       //   duration: 1 // Adjust duration as needed
+  //       // });
+  //     }
+  //   });
+  // }
+
+  const heroTimeline = gsap
+    .timeline({ paused: true })
+    .to(visibleHeroSpans, { y: '-200%', stagger: 0.2, duration: 0.5 })
+    .to(slides, { yPercent: -100, stagger: 0.2, duration: 1 }, '<')
+    .to('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
+    .to('.hero-decoration', { y: '-150%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '<');
+  let t;
 
   ScrollTrigger.create({
-    animation: heroTimeline,
     trigger: 'body',
     start: 'top top',
-    end: '+=50px',
-    toggleActions: 'none play reverse none',
+    end: '+=20px',
     fastScrollEnd: true,
     preventOverlaps: true,
-    markers: false,
-    onToggle({ direction }) {
-      // // Determine the appropriate easing function for the timeline's playhead
-      // const easeType = direction === 1 ? 'expo.out' : 'expo.in';
-      // console.log('Applying Ease:', easeType);
-      // // Use .tweenTo() to control the timeline's progress with easing
-      // const targetTime = direction === 1 ? heroTimeline.duration() : 0;
-      // heroTimeline.tweenTo(targetTime, {
-      //   ease: easeType,
-      //   overwrite: true,
-      //   duration: 1 // Adjust duration as needed
-      // });
+    markers: true,
+    onLeave: () => {
+      t && t.kill();
+      t = gsap.to(heroTimeline, {
+        duration: 1.5,
+        progress: 1,
+        ease: 'power1.out'
+      });
+    },
+    onEnterBack: () => {
+      t && t.kill();
+      t = gsap.to(heroTimeline, {
+        duration: 1.5,
+        progress: 0,
+        ease: 'power1.out'
+      });
     }
   });
+  //
 }
-
-//   let heroTimeline = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
-
-//   heroTimeline
-//     .fromTo(visibleHeroSpans, { y: '0%' }, { y: '-200%', stagger: 0.06, duration: 1 })
-//     .fromTo('.hero-decoration', { y: '0%' }, { y: '-150%', stagger: 0.1, duration: 1.5 }, '<')
-//     .fromTo('.sectionunderlay-slide', { y: '0%' }, { y: '-100%', stagger: 0.1, duration: 2.5 }, '<')
-//     .fromTo('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<')
-//     .addPause();
-//   heroTimelineExitTime = heroTimeline.duration();
-
-//   heroTimelineReverse = gsap.timeline({ defaults: { ease: 'circ' }, paused: true });
-//   heroTimelineReverse
-//     .fromTo(visibleHeroSpans, { y: '-200%' }, { y: '0%', stagger: -0.06, duration: 1 })
-//     .fromTo('.hero-decoration', { y: '-150%' }, { y: '0%', stagger: -0.1, duration: 1.5 }, '<')
-//     .fromTo('.sectionunderlay-slide', { y: '-100%' }, { y: '0%', stagger: -0.1, duration: 2.5 }, '<')
-//     .fromTo('.header-container', { mixBlendMode: 'difference' }, { mixBlendMode: 'normal' }, '<')
-//     .addPause();
-//   heroTimelineReverseExitTime = heroTimelineReverse.duration();
-
-//   ScrollTrigger.create({
-//     // animation: heroTimeline,
-//     trigger: 'body',
-//     start: 'top top',
-//     end: '+=50px',
-//     toggleActions: 'none play reverse none',
-//     fastScrollEnd: true,
-//     preventOverlaps: true,
-//     markers: false,
-//     onLeave: () => {
-//       heroTimeline.play();
-//     },
-//     onEnterBack: () => {
-//       if (heroTimelineExitTime.time() < exitTime) {
-//         heroTimeline.reverse();
-//       } else {
-//         heroTimelineReverse.play();
-//       }
-//     }
-//   });
-// }
 
 //
 
 gsap.set('.footer-slide', { y: '100%' });
 gsap.set('.footer-container', { y: '100px', opacity: 0 });
-gsap.fromTo(
-  '.whatsapp-button-radial',
-  { opacity: 0 }, // Start state
-  { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true } // End state
-);
+gsap.set('.footer-wrapper', { opacity: 0, visibility: 'hidden' });
+gsap.fromTo('.whatsapp-button-radial', { opacity: 0 }, { opacity: 1, ease: 'power4.inOut', repeat: -1, duration: 2, yoyo: true });
+
+const footerTl = gsap
+  .timeline({ paused: true })
+  .to('.footer-slide', { y: '0', stagger: 0.1, duration: 2, ease: 'expo.out', delay: 0.2 })
+  .to('.footer-container', { y: '0', opacity: 1, duration: 1, ease: 'expo.out', delay: 1 }, '<')
+  .to('.footer-wrapper', { visibility: 'visible', opacity: 1, autoAlpha: true }, '<')
+  .to('.grid-container.footer', { visibility: 'visible', opacity: 1, autoAlpha: true }, '<');
+let ft;
 
 // bottom timeline
 gsap.timeline({
   scrollTrigger: {
     trigger: '.footer-pseudo',
-    start: 'top 50%',
+    start: 'top 40%',
     end: '-=50px', // End after scrolling 20px
     // markers: true,
     toggleActions: 'play none none none',
     onEnter: () => {
-      gsap.to('.footer-slide', { y: '0', stagger: 0.1, duration: 2, ease: 'expo.out', delay: 0.2 });
-      gsap.to('.footer-container', { y: '0', opacity: 1, duration: 1, ease: 'expo.out', delay: 1 });
+      ft && ft.kill();
+      // gsap.set('.footer-wrapper', { visibility: 'visible', opacity: 1, autoAlpha: true });
+      ft = gsap.to(footerTl, {
+        duration: 2,
+        progress: 1,
+        ease: 'power1.out'
+      });
     },
     onLeaveBack: () => {
-      gsap.to('.footer-slide', { y: '100%', stagger: -0.1, duration: 2, ease: 'expo.out', delay: 0.2 });
-      gsap.to('.footer-container', { y: '100px', opacity: 0, duration: 1, ease: 'expo.out', delay: 0.1 });
+      ft && ft.kill();
+      ft = gsap.to(footerTl, {
+        duration: 2,
+        progress: 0,
+        ease: 'power1.out'
+      });
+      // wait to end
+
+      // gsap.set('.footer-wrapper', { visibility: 'hidden', opacity: 0, autoAlpha: false });
     }
   }
 });
@@ -165,10 +177,8 @@ mm.add('(min-width: 401px)', () => {
     .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
     .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
 });
-//
 
 // sticky section
-
 const sections = document.querySelectorAll('.sticky-section-wrap');
 
 sections.forEach((section, index) => {
@@ -207,7 +217,7 @@ sections.forEach((section, index) => {
     }
   });
 });
-// setTimeout(() => {
+
 gsap.set('.sticky-section-body', { height: '0' });
 gsap.set('[hover-image]', { display: 'none' });
 gsap.set('.sticky-section-wrap', { opacity: 0.4 });
@@ -227,10 +237,6 @@ gsap.from('.section-1-heading', {
     toggleActions: 'play none none none'
   }
 });
-
-//
-
-// old footer placement
 
 /// threejs distorted images on hover
 const container = document.querySelector('.triggercontainer');
