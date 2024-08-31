@@ -75,10 +75,10 @@ function initHeroTimeline() {
 
   const heroTimeline = gsap
     .timeline({ paused: true })
-    .to(visibleHeroSpans, { y: '-200%', stagger: 0.2, duration: 0.5 })
+    .to(visibleHeroSpans, { y: '-200%', stagger: 0.15, duration: 0.3 })
     .to(slides, { yPercent: -100, stagger: 0.2, duration: 1 }, '<')
     .to('.header-container', { mixBlendMode: 'difference' }, '<')
-    .to('.hero-decoration', { y: '-150%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '<');
+    .to('.hero-decoration', { y: '-300%', stagger: -0.1, duration: 1, delay: 0 }, '<');
   let t;
 
   ScrollTrigger.create({
@@ -91,7 +91,7 @@ function initHeroTimeline() {
     onLeave: () => {
       t && t.kill();
       t = gsap.to(heroTimeline, {
-        duration: 1.5,
+        duration: 2,
         progress: 1,
         ease: 'power1.out'
       });
@@ -135,7 +135,7 @@ gsap.timeline({
       ft && ft.kill();
       // gsap.set('.footer-wrapper', { visibility: 'visible', opacity: 1, autoAlpha: true });
       ft = gsap.to(footerTl, {
-        duration: 2,
+        duration: 3,
         progress: 1,
         ease: 'power1.out'
       });
@@ -143,7 +143,7 @@ gsap.timeline({
     onLeaveBack: () => {
       ft && ft.kill();
       ft = gsap.to(footerTl, {
-        duration: 2,
+        duration: 1,
         progress: 0,
         ease: 'power1.out'
       });
@@ -280,18 +280,26 @@ video.addEventListener(
 );
 
 function draw(video, context, canvases) {
-  if (video.paused || video.ended) return false;
+  requestAnimationFrame(() => draw(video, context, canvases)); // Proper placement for continuous drawing
+  if (video.paused || video.ended) return; // Minor change: use 'return;' instead of 'return false;'
+
   context.forEach((ctx, index) => {
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
-    const widthAdjustmentPercentage = 0.1; // Adjust this value as needed (e.g., 0.10 for 10%)
-    const sliceWidth = video.videoWidth / canvases.length;
-    const widthAdjustment = sliceWidth * widthAdjustmentPercentage;
-
-    ctx.drawImage(video, sliceWidth * index, 0, sliceWidth, video.videoHeight, 0, 0, canvases[index].width, canvases[index].height);
+    const sliceWidth = video.videoWidth / canvases.length; // Calculate width of each slice
+    ctx.drawImage(
+      video,
+      sliceWidth * index,
+      0,
+      sliceWidth,
+      video.videoHeight, // Source dimensions
+      0,
+      0,
+      canvases[index].width,
+      canvases[index].height
+    ); // Destination dimensions
   });
-  requestAnimationFrame(() => draw(video, context, canvases));
 }
 
 const swiper = new Swiper('.swiper', {
