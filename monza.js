@@ -77,7 +77,7 @@ function initHeroTimeline() {
     .timeline({ paused: true })
     .to(visibleHeroSpans, { y: '-200%', stagger: 0.2, duration: 0.5 })
     .to(slides, { yPercent: -100, stagger: 0.2, duration: 1 }, '<')
-    .to('.header-container', { mixBlendMode: 'normal' }, { mixBlendMode: 'difference' }, '<');
+    .to('.header-container', { mixBlendMode: 'difference' }, '<')
     .to('.hero-decoration', { y: '-150%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '<');
   let t;
 
