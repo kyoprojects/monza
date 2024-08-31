@@ -35,42 +35,35 @@
 <script>
   const slides = document.querySelectorAll('.slider-column');
 
-  let heroTimeline = gsap.timeline({ defaults: { ease: 'expo' }, paused: true });
-  heroTimeline.to(slides, { y: '-100%', stagger: 0.1, duration: 2.5 }).addPause();
-  heroTimelineExitTime = heroTimeline.duration();
-
-  heroTimelineReverse = gsap.timeline({ defaults: { ease: 'expo' }, paused: true });
-  heroTimelineReverse.to(slides, { y: '0%', stagger: -0.1, duration: 2.5 }).addPause();
-  heroTimelineReverseExitTime = heroTimelineReverse.duration();
+  const heroTimeline = gsap
+    .timeline({ paused: true })
+    .to(visibleHeroSpans, { y: '-200%', stagger: 0.2, duration: 0.5 })
+    .to(slides, { yPercent: -100, stagger: 0.2, duration: 1 }, '<')
+    .to('.hero-decoration', { y: '-150%', stagger: -0.1, duration: 1, ease: 'expo.out', delay: 0 }, '<');
+  let t;
 
   ScrollTrigger.create({
-    // animation: heroTimeline,
     trigger: 'body',
     start: 'top top',
-    end: '+=50px',
-    // toggleActions: 'none play reverse none',
+    end: '+=20px',
     fastScrollEnd: true,
     preventOverlaps: true,
-    markers: false,
+    markers: true,
     onLeave: () => {
-      console.log('onLeave');
-      heroTimeline.play();
+      t && t.kill();
+      t = gsap.to(heroTimeline, {
+        duration: 1.5,
+        progress: 1,
+        ease: 'power1.out'
+      });
     },
     onEnterBack: () => {
-      console.log('onEnterBack');
-      if (heroTimeline.time() < heroTimelineExitTime) {
-        heroTimeline.reverse();
-      } else {
-        heroTimelineReverse.play();
-      }
-    },
-    onLeaveBack: () => {
-      console.log('onLeaveBack');
-      if (heroTimelineReverse.time() < heroTimelineReverseExitTime) {
-        heroTimelineReverse.reverse();
-      } else {
-        heroTimeline.play();
-      }
+      t && t.kill();
+      t = gsap.to(heroTimeline, {
+        duration: 1.5,
+        progress: 0,
+        ease: 'power1.out'
+      });
     }
   });
 </script>
