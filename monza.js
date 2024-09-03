@@ -87,7 +87,6 @@ function initHeroTimeline() {
     end: '+=20px',
     fastScrollEnd: true,
     preventOverlaps: true,
-    markers: true,
     onLeave: () => {
       t && t.kill();
       t = gsap.to(heroTimeline, {
