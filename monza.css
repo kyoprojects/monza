@@ -86,6 +86,7 @@
   pointer-events: none;
 }
 
+/* 
 .circle-container {
   position: relative;
 }
@@ -96,4 +97,4 @@
   left: 50%;
   transform: translateX(-50%) translateY(-50%) rotate(var(--angle)) translate(100px) rotate(calc(-1 * var(--angle)));
   transform-origin: center; /* Ensures rotation is around the center */
-}
+} */
