@@ -162,8 +162,8 @@ mm.add('(max-width: 400px)', () => {
     .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
     .fromTo('[image-slide-2]', { y: '200px' }, { y: '-150px' }, '<')
     .fromTo('[image-slide-3]', { y: '300px' }, { y: '-100px' }, '<')
-    .fromTo('[image-slide-4]', { y: '400px' }, { y: '0px' }, '<')
-    .fromTo('[image-slide-5]', { y: '250px' }, { y: '-100px' }, '<');
+    .fromTo('[image-slide-4]', { y: '200px' }, { y: '-300px' }, '<')
+    .fromTo('[image-slide-5]', { y: '400px' }, { y: '0px' }, '<');
 });
 mm.add('(min-width: 401px)', () => {
   gsap.timeline({
