@@ -166,15 +166,14 @@ mm.add('(max-width: 400px)', () => {
     .fromTo('[image-slide-5]', { y: '400px' }, { y: '-100px' }, '<');
 });
 mm.add('(min-width: 401px)', () => {
-  gsap
-    .timeline({
-      scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: false, toggleActions: 'play none none none' }
-    })
-    .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
-    .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
-    .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
-    .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
-    .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
+  gsap.timeline({
+    scrollTrigger: { trigger: '.image-slide-sectionwrap', start: 'top bottom', end: 'bottom top', scrub: 3, markers: false, toggleActions: 'play none none none' }
+  });
+  // .fromTo('[image-slide-1]', { y: '100px' }, { y: '-100px' })
+  // .fromTo('[image-slide-2]', { y: '500px' }, { y: '-350px' }, '<')
+  // .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
+  // .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
+  // .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
 });
 
 // sticky section
