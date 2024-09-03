@@ -174,6 +174,23 @@ mm.add('(min-width: 401px)', () => {
   // .fromTo('[image-slide-3]', { y: '600px' }, { y: '-200px' }, '<')
   // .fromTo('[image-slide-4]', { y: '600px' }, { y: '-200px' }, '<')
   // .fromTo('[image-slide-5]', { y: '850px' }, { y: '-550px' }, '<');
+
+  /// threejs distorted images on hover
+  const container = document.querySelector('.triggercontainer');
+  const itemsWrapper = document.querySelector('.hoverwrap');
+  // Preload images
+  const preloadImages = () => {
+    return new Promise((resolve, reject) => {
+      imagesLoaded(document.querySelectorAll('img'), resolve);
+    });
+  };
+  preloadImages().then(() => {
+    // remove loader
+    document.body.classList.remove('loading');
+    const effect = new RGBShiftEffect(container, itemsWrapper, {
+      strength: 0.25
+    });
+  });
 });
 
 // sticky section
@@ -234,23 +251,6 @@ gsap.from('.section-1-heading', {
     markers: false,
     toggleActions: 'play none none none'
   }
-});
-
-/// threejs distorted images on hover
-const container = document.querySelector('.triggercontainer');
-const itemsWrapper = document.querySelector('.hoverwrap');
-// Preload images
-const preloadImages = () => {
-  return new Promise((resolve, reject) => {
-    imagesLoaded(document.querySelectorAll('img'), resolve);
-  });
-};
-preloadImages().then(() => {
-  // remove loader
-  document.body.classList.remove('loading');
-  const effect = new RGBShiftEffect(container, itemsWrapper, {
-    strength: 0.25
-  });
 });
 
 // // lenis
