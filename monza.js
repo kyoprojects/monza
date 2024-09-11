@@ -254,13 +254,13 @@ gsap.from('.section-1-heading', {
   }
 });
 
-// // lenis
-// const lenis = new Lenis();
-// function raf(time) {
-//   lenis.raf(time);
-//   requestAnimationFrame(raf);
-// }
-// requestAnimationFrame(raf);
+// lenis
+const lenis = new Lenis();
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
 
 // circle text
 new CircleType(document.getElementById('circletext'));
@@ -301,6 +301,7 @@ function draw(video, context, canvases) {
   });
 }
 
+// swiper slider
 const swiper = new Swiper('.swiper', {
   loop: true,
   slidesPerView: 1,
